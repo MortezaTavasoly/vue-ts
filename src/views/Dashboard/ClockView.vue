@@ -10,34 +10,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 export default defineComponent({
   name: "ClockView",
-  setup() {
-    const curDate = new Date();
-    const hour = ref<number>(curDate.getHours());
-    const minute = ref<number>(curDate.getMinutes());
-    const second = ref<number>(curDate.getSeconds());
-    const greeting = ref<string>("Good Morning");
-
-    setInterval(() => {
-      let date = new Date();
-      hour.value = date.getHours();
-      minute.value = date.getMinutes();
-      second.value = date.getSeconds();
-    }, 1000);
-
-    return { hour, minute, second, greeting };
-  },
+  props: ["hour", "minute", "second", "greeting"],
 });
 </script>
-
 <style>
+.dash-board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.greeting {
+  margin: 0 10px;
+}
 .clock {
   margin: 40px;
   margin-right: -20px;
 }
 .clock .numbers {
   font-size: 60px;
+}
+/* responsive */
+@media (max-width: 500px) {
+  .clock .numbers {
+    font-size: 40px;
+  }
 }
 </style>
