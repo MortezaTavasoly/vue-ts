@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import DashBoard from "../views/Dashboard/DashBoard.vue";
 import TodoList from "../views/TodoList/TodoList.vue";
-import WeatherView from "../views/WeatherView.vue";
+import WeatherView from "../views/Weather/WeatherView.vue";
 import ProfileView from "../views/ProfileView.vue";
 
 const routes: Array<RouteRecordRaw> = [
