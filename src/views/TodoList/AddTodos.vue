@@ -19,16 +19,12 @@
   </form>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
-export default defineComponent({
-  name: "AddTodos",
-  emits: ["addTodo", "changeTodoTitle"],
-  setup() {
-    const newTask = ref<string>("");
-    return { newTask };
-  },
-});
+<script setup lang="ts">
+import { defineEmits, ref } from "vue";
+
+const emit = defineEmits(["addTodo", "changeTodoTitle"]);
+
+const newTask = ref<string>("");
 </script>
 
 <style></style>

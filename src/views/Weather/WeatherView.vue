@@ -22,56 +22,42 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
-import { WeatherData, LocationData } from "../../types/Weather";
+<script setup lang="ts">
+import { defineProps, defineEmits, onMounted, ref } from "vue";
+import { WeatherData } from "../../types/Weather";
 import WeatherPrimeryDetails from "./WeatherPrimeryDetails.vue";
 import WeatherSecondaryDetails from "./WeatherSecondaryDetails.vue";
 import { useI18n } from "vue-i18n";
 import { getLocation, getWeatherData } from "./UseWeather";
 
-export default defineComponent({
-  props: ["uName", "theme"],
-  emits: ["newName", "error"],
-  components: { WeatherPrimeryDetails, WeatherSecondaryDetails },
-  name: "WeatherView",
+const props = defineProps<{ uName: string; theme: string }>();
+const emit = defineEmits(["newName", "error"]);
 
-  setup(props, context) {
-    const weatherData = ref<WeatherData | null>(null);
-    const searchValue = ref<string>("");
-    const error = ref<string>("");
-    const { t } = useI18n({});
+const weatherData = ref<WeatherData | null>(null);
+const searchValue = ref<string>("");
+const error = ref<string>("");
+const { t } = useI18n({});
 
-    const getSearchWeather = (cityName: string) => {
-      searchValue.value = "";
+const getSearchWeather = (cityName: string) => {
+  searchValue.value = "";
 
-      if (cityName.trim() !== "") {
-        getWeatherData(cityName).then((response) => {
-          if (response !== "error") {
-            weatherData.value = response;
-          } else {
-            error.value = response;
-          }
-        });
-      } else {
-        context.emit("error", t("cityEmptyError"));
-      }
-    };
-
-    onMounted(() => {
-      getLocation().then((response) => {
+  if (cityName.trim() !== "") {
+    getWeatherData(cityName).then((response) => {
+      if (response !== "error") {
         weatherData.value = response;
-      });
+      } else {
+        error.value = response;
+      }
     });
+  } else {
+    emit("error", t("cityEmptyError"));
+  }
+};
 
-    return {
-      getWeatherData,
-      weatherData,
-      searchValue,
-      error,
-      getSearchWeather,
-    };
-  },
+onMounted(() => {
+  getLocation().then((response) => {
+    weatherData.value = response;
+  });
 });
 </script>
 <style></style>

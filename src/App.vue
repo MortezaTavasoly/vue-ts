@@ -9,9 +9,9 @@
     <ErrorView v-if="showError" :errorValue="errorValue" />
   </transition>
 
-  <Appbar :theme="theme" />
+  <AppbarView :theme="theme" />
 
-  <Sidebar :theme="theme" />
+  <SidebarView :theme="theme" />
 
   <div class="content">
     <router-view
@@ -31,88 +31,69 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, onMounted, watch } from "vue";
-import Appbar from "./components/Appbar.vue";
-import Sidebar from "./components/Sidebar/Sidebar.vue";
+<script setup lang="ts">
+import { ref, onMounted, watch } from "vue";
+import AppbarView from "./components/AppbarView.vue";
+import SidebarView from "./components/Sidebar/SidebarView.vue";
 import ModalView from "./components/ModalView.vue";
 import ErrorView from "./components/ErrorView.vue";
 import { useI18n } from "vue-i18n";
 
-export default defineComponent({
-  name: "App",
-  components: { Appbar, Sidebar, ModalView, ErrorView },
-  setup() {
-    let name = ref<string | null>("");
-    let theme = ref<string>("light");
-    let language = ref<string>("en");
-    let showError = ref<boolean>(false);
-    let errorValue = ref<string>("");
-    const { locale } = useI18n({ useScope: "global" });
+let name = ref<string | null>("");
+let theme = ref<string>("light");
+let language = ref<string>("en");
+let showError = ref<boolean>(false);
+let errorValue = ref<string>("");
+const { locale } = useI18n({ useScope: "global" });
 
-    watch(theme, () => {
-      if (theme.value === "dark") {
-        document.body.style.backgroundColor = "#1f1f1f";
-      } else {
-        document.body.style.backgroundColor = "#d4d4d4";
-      }
-    });
-    watch(language, () => {
-      locale.value = language.value;
-      localStorage.setItem("locale", language.value);
-    });
-
-    onMounted(() => {
-      if (localStorage.getItem("name")) {
-        name.value = localStorage.getItem("name");
-      }
-      if (localStorage.getItem("theme")) {
-        theme.value = localStorage.getItem("theme")!;
-      }
-      if (localStorage.getItem("locale")) {
-        language.value = localStorage.getItem("locale")!;
-      }
-    });
-
-    const handleName = (userName: string) => {
-      name.value = userName;
-    };
-
-    const handleNewName = (newName: string) => {
-      name.value = newName;
-    };
-
-    const handleTheme = (e: string) => {
-      theme.value = e;
-      localStorage.setItem("theme", theme.value);
-    };
-    const handleLocale = (e: string) => {
-      language.value = e;
-      localStorage.setItem("locale", language.value);
-    };
-
-    const handleError = (errorText: string) => {
-      errorValue.value = errorText;
-      showError.value = true;
-      setTimeout(() => {
-        showError.value = false;
-      }, 3000);
-    };
-
-    return {
-      handleError,
-      handleName,
-      handleNewName,
-      handleTheme,
-      handleLocale,
-      showError,
-      errorValue,
-      name,
-      theme,
-      language,
-    };
-  },
+watch(theme, () => {
+  if (theme.value === "dark") {
+    document.body.style.backgroundColor = "#1f1f1f";
+  } else {
+    document.body.style.backgroundColor = "#d4d4d4";
+  }
 });
+watch(language, () => {
+  locale.value = language.value;
+  localStorage.setItem("locale", language.value);
+});
+
+onMounted(() => {
+  if (localStorage.getItem("name")) {
+    name.value = localStorage.getItem("name");
+  }
+  if (localStorage.getItem("theme")) {
+    theme.value = localStorage.getItem("theme")!;
+  }
+  if (localStorage.getItem("locale")) {
+    language.value = localStorage.getItem("locale")!;
+  }
+});
+
+const handleName = (userName: string) => {
+  name.value = userName;
+};
+
+const handleNewName = (newName: string) => {
+  name.value = newName;
+};
+
+const handleTheme = (e: string) => {
+  theme.value = e;
+  localStorage.setItem("theme", theme.value);
+};
+const handleLocale = (e: string) => {
+  language.value = e;
+  localStorage.setItem("locale", language.value);
+};
+
+const handleError = (errorText: string) => {
+  errorValue.value = errorText;
+  showError.value = true;
+  setTimeout(() => {
+    showError.value = false;
+  }, 3000);
+};
 </script>
 
 <style>

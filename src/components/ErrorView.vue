@@ -1,16 +1,16 @@
 <template>
   <div class="error-container">
     <div class="title">
-      <p>{{ errorValue }}</p>
+      <p>{{ props.errorValue }}</p>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-  name: "ErrorView",
-  props: ["errorValue"],
+<script setup lang="ts">
+import { defineProps } from "vue";
+
+const props = defineProps({
+  errorValue: String,
 });
 </script>
 

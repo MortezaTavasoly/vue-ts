@@ -38,46 +38,38 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+<script setup lang="ts">
+import { defineProps, defineEmits, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-export default defineComponent({
-  name: "ProfileView",
-  props: ["uName", "theme", "language"],
-  emits: ["newName", "error", "themeChange", "localeChange"],
-
-  setup(props, context) {
-    const newName = ref<string>("");
-    const curTheme = ref<string>("");
-    const curLocale = ref<string>("");
-    const { t } = useI18n({ useScope: "global" });
-
-    const handleTheme = (e: any) => {
-      context.emit("themeChange", e.target.value);
-    };
-    const handleLocale = (e: any) => {
-      context.emit("localeChange", e.target.value);
-    };
-    const handelNewName = () => {
-      if (newName.value.trim() !== "") {
-        localStorage.setItem("name", newName.value);
-        context.emit("newName", newName.value);
-        newName.value = "";
-      } else {
-        context.emit("error", t("profileNameError"));
-      }
-    };
-    return {
-      newName,
-      curTheme,
-      handelNewName,
-      handleLocale,
-      handleTheme,
-      curLocale,
-    };
-  },
+const props = defineProps({
+  uName: String,
+  theme: String,
+  language: String,
 });
+
+const emit = defineEmits(["newName", "error", "themeChange", "localeChange"]);
+
+const newName = ref<string>("");
+const curTheme = ref<string>("");
+const curLocale = ref<string>("");
+const { t } = useI18n({ useScope: "global" });
+
+const handleTheme = (e: any) => {
+  emit("themeChange", e.target.value);
+};
+const handleLocale = (e: any) => {
+  emit("localeChange", e.target.value);
+};
+const handelNewName = () => {
+  if (newName.value.trim() !== "") {
+    localStorage.setItem("name", newName.value);
+    emit("newName", newName.value);
+    newName.value = "";
+  } else {
+    emit("error", t("profileNameError"));
+  }
+};
 </script>
 <style>
 .profile-form {

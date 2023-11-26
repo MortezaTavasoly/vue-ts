@@ -3,20 +3,20 @@
     <h1 class="degrees">{{ Math.round(weatherData?.main.temp - 273) }}°C</h1>
     <h3>{{ weatherData.sys.country }},{{ weatherData?.name }}</h3>
     <img
-      v-if="weatherData?.weather[0].icon"
+      v-if="weatherData.weather[0].icon"
       :src="`https://openweathermap.org/img/wn/${weatherData?.weather[0].icon}@2x.png`"
       alt="`weather-image"
     />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { defineProps } from "vue";
+import { WeatherData } from "../../types/Weather";
 
-export default defineComponent({
-  name: "WeatherPrimeryDetails",
-  props: ["weatherData"],
-});
+const props = defineProps<{
+  weatherData: WeatherData;
+}>();
 </script>
 
 <style>

@@ -9,12 +9,15 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-  name: "ClockView",
-  props: ["hour", "minute", "second", "greeting"],
-});
+<script setup lang="ts">
+import { defineProps } from "vue";
+
+const props = defineProps<{
+  hour: number;
+  minute: number;
+  second: number;
+  greeting: string;
+}>();
 </script>
 <style>
 .dash-board {

@@ -20,12 +20,15 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-  props: ["todo"],
-  emits: ["handleTodo"],
-});
+<script setup lang="ts">
+import { defineProps, defineEmits } from "vue";
+import Todo from "../../types/Todo";
+
+const props = defineProps<{
+  todo: Todo;
+}>();
+
+const emit = defineEmits(["handleTodo"]);
 </script>
 
 <style>

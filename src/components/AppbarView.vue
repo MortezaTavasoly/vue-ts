@@ -1,13 +1,17 @@
 <template>
-  <div class="appbar" :class="{ dark: theme === 'dark' }" data-testid="appbar">
+  <div
+    class="appbar"
+    :class="{ dark: props.theme === 'dark' }"
+    data-testid="appbar"
+  >
     <h1 class="appbar-title">LOGO</h1>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-  name: "App-bar",
-  props: ["theme"],
+<script setup lang="ts">
+import { defineProps } from "vue";
+
+const props = defineProps({
+  theme: String,
 });
 </script>
 <style>

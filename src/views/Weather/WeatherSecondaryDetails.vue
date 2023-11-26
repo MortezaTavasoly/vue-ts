@@ -15,13 +15,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { defineProps } from "vue";
+import { WeatherData } from "../../types/Weather";
 
-export default defineComponent({
-  name: "WeatherSecondaryDetails",
-  props: ["weatherData"],
-});
+const props = defineProps<{
+  weatherData: WeatherData;
+}>();
 </script>
 
 <style></style>
