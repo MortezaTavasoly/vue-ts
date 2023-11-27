@@ -32,7 +32,8 @@ const props = defineProps({
 const store = useStore();
 
 const logOut = () => {
-  store.state.loggedin = false;
+  store.commit("logging");
+  // store.state.loggedin = false;
   localStorage.setItem("loggedIn", "false");
 };
 </script>

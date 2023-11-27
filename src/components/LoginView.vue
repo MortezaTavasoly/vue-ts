@@ -44,7 +44,7 @@ const auth = () => {
     userName.value === store.state.user.userName &&
     password.value === store.state.user.password
   ) {
-    store.state.loggedin = true;
+    store.commit("logging");
     localStorage.setItem("loggedIn", "true");
     router.push("/");
   } else {

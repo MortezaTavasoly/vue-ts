@@ -8,4 +8,9 @@ export default createStore({
     },
     loggedin: false,
   },
+  mutations: {
+    logging: (state) => {
+      state.loggedin = !state.loggedin;
+    },
+  },
 });
