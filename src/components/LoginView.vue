@@ -44,7 +44,7 @@ const auth = () => {
     userName.value === store.state.user.userName &&
     password.value === store.state.user.password
   ) {
-    store.dispatch("updateLogging");
+    store.dispatch("updateLogging", "logging-in");
     router.push("/");
   } else {
     emit("error", t("loginError"));

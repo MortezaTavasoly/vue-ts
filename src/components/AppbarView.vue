@@ -13,7 +13,11 @@
         </p>
       </button>
     </router-link>
-    <router-link to="/" @click="store.dispatch('updateLogging')" v-else>
+    <router-link
+      to="/"
+      @click="store.dispatch('updateLogging', 'logging-out')"
+      v-else
+    >
       <button class="logout-btn">
         <p>
           {{ $t("logOut") }}
