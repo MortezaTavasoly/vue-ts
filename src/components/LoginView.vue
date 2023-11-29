@@ -44,8 +44,7 @@ const auth = () => {
     userName.value === store.state.user.userName &&
     password.value === store.state.user.password
   ) {
-    store.commit("logging");
-    localStorage.setItem("loggedIn", "true");
+    store.dispatch("updateLogging");
     router.push("/");
   } else {
     emit("error", t("loginError"));

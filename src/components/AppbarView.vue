@@ -13,7 +13,7 @@
         </p>
       </button>
     </router-link>
-    <router-link to="/" @click="logOut" v-else>
+    <router-link to="/" @click="store.dispatch('updateLogging')" v-else>
       <button class="logout-btn">
         <p>
           {{ $t("logOut") }}
@@ -30,12 +30,6 @@ const props = defineProps({
   theme: String,
 });
 const store = useStore();
-
-const logOut = () => {
-  store.commit("logging");
-  // store.state.loggedin = false;
-  localStorage.setItem("loggedIn", "false");
-};
 </script>
 <style>
 .appbar.dark {
