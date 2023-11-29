@@ -3,6 +3,7 @@ import DashBoard from "../views/Dashboard/DashBoard.vue";
 import TodoList from "../views/TodoList/TodoList.vue";
 import WeatherView from "../views/Weather/WeatherView.vue";
 import ProfileView from "../views/ProfileView.vue";
+import LoginView from "../components/LoginView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/profile",
     name: "profile",
     component: ProfileView,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: LoginView,
   },
 ];
 

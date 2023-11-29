@@ -38,13 +38,30 @@ import SidebarView from "./components/Sidebar/SidebarView.vue";
 import ModalView from "./components/ModalView.vue";
 import ErrorView from "./components/ErrorView.vue";
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 let name = ref<string | null>("");
 let theme = ref<string>("light");
 let language = ref<string>("en");
 let showError = ref<boolean>(false);
 let errorValue = ref<string>("");
-const { locale } = useI18n({ useScope: "global" });
+const { locale, t } = useI18n({ useScope: "global" });
+const router = useRouter();
+const store = useStore();
+
+router.beforeEach((to) => {
+  if (to.path === "/todos" && !store.state.loggedin) {
+    router.push("/login");
+    handleError(t("NotLoggedinError"));
+  } else if (to.path === "/weather" && !store.state.loggedin) {
+    router.push("/login");
+    handleError(t("NotLoggedinError"));
+  } else if (to.path === "/profile" && !store.state.loggedin) {
+    handleError(t("NotLoggedinError"));
+    router.push("/login");
+  }
+});
 
 watch(theme, () => {
   if (theme.value === "dark") {
@@ -67,6 +84,9 @@ onMounted(() => {
   }
   if (localStorage.getItem("locale")) {
     language.value = localStorage.getItem("locale")!;
+  }
+  if (localStorage.getItem("loggedIn")) {
+    store.state.loggedin = JSON.parse(localStorage.getItem("loggedIn")!);
   }
 });
 
