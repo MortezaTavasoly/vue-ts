@@ -2,12 +2,15 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    user: {
-      userName: "username1",
-      password: "1234",
-    },
     loggedin: false,
   },
+
+  getters: {
+    logginStatus: (state) => {
+      return state.loggedin;
+    },
+  },
+
   mutations: {
     logging: (state, payload) => {
       if (payload) {
@@ -23,12 +26,11 @@ export default createStore({
   // البته چون قراره فقط فرایند توی فرانت  فقط اتفاق بیفته توی
   //  اکشن بر فرض مثال یک ریکوئست برای تایید یوزرینم و پسورد صورت گرفته و جوابش مثبت بوده
   actions: {
-    updateLogging(context, action) {
-      if (action === "logging-in") {
-        context.commit("logging", true);
-      } else if (action === "logging-out") {
-        context.commit("logging", false);
-      }
+    userLoggingOut(context) {
+      context.commit("logging", false);
+    },
+    userLoggingIn(context, action) {
+      context.commit("logging", true);
     },
   },
 });

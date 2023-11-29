@@ -6,18 +6,14 @@
   >
     <h1 class="appbar-title">LOGO</h1>
 
-    <router-link to="/login" v-if="!store.state.loggedin">
+    <router-link to="/login" v-if="!loginStatus">
       <button class="login-btn">
         <p>
           {{ $t("login") }}
         </p>
       </button>
     </router-link>
-    <router-link
-      to="/"
-      @click="store.dispatch('updateLogging', 'logging-out')"
-      v-else
-    >
+    <router-link to="/" @click="loggingOut" v-else>
       <button class="logout-btn">
         <p>
           {{ $t("logOut") }}
@@ -27,6 +23,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { computed } from "@vue/reactivity";
 import { defineProps } from "vue";
 import { useStore } from "vuex";
 
@@ -34,6 +31,11 @@ const props = defineProps({
   theme: String,
 });
 const store = useStore();
+
+const loginStatus = computed(() => store.getters.logginStatus);
+const loggingOut = () => {
+  store.dispatch("userLoggingOut");
+};
 </script>
 <style>
 .appbar.dark {

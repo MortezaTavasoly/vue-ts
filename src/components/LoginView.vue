@@ -40,11 +40,8 @@ const userName = ref<string>("");
 const password = ref<string>("");
 
 const auth = () => {
-  if (
-    userName.value === store.state.user.userName &&
-    password.value === store.state.user.password
-  ) {
-    store.dispatch("updateLogging", "logging-in");
+  if (userName.value === "username1" && password.value === "1234") {
+    store.dispatch("userLoggingIn");
     router.push("/");
   } else {
     emit("error", t("loginError"));
