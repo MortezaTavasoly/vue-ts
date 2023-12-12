@@ -1,5 +1,9 @@
 <template>
-  <div class="modal" :class="{ dark: theme === 'dark' }" data-testid="popup">
+  <div
+    class="modal"
+    :class="{ dark: props.theme === 'dark' }"
+    data-testid="popup"
+  >
     <form
       class="modal-form"
       @submit.prevent="handleName"
@@ -14,31 +18,29 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script setup lang="ts">
+import { defineProps, defineEmits, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-export default defineComponent({
-  props: ["theme"],
-  emits: ["uName", "error"],
-  setup(props, context) {
-    const name = ref<string>("");
-    const { t } = useI18n({});
-
-    const handleName = () => {
-      if (name.value.trim() !== "") {
-        context.emit("uName", name.value);
-        localStorage.setItem("name", name.value);
-        name.value = "";
-      } else {
-        name.value = "";
-        context.emit("error", t("modalNameError"));
-      }
-    };
-
-    return { name, handleName };
-  },
+const props = defineProps({
+  theme: String,
 });
+
+const emit = defineEmits(["uName", "error"]);
+
+const name = ref<string>("");
+const { t } = useI18n({});
+
+const handleName = (): void => {
+  if (name.value.trim() !== "") {
+    emit("uName", name.value);
+    localStorage.setItem("name", name.value);
+    name.value = "";
+  } else {
+    name.value = "";
+    emit("error", t("modalNameError"));
+  }
+};
 </script>
 
 <style>

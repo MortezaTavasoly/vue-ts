@@ -31,5 +31,12 @@
   "profileNameError": "Inpute is Empty !!!",
   "todoListError": "Please Enter Your Task !!!",
   "todoListEmpty": "Your Todo List is Empty !",
-  "cityEmptyError": "Please Enter Your City Name !!!"
+  "cityEmptyError": "Please Enter Your City Name !!!",
+  "login": "Login",
+  "close": "Close",
+  "loginError": "Please Enter Your Username and Password Correctly !!!",
+  "NotLoggedinError": "Please Login First !!!",
+  "logOut": "Log Out",
+  "password": "Password",
+  "userName": "UserName"
 }

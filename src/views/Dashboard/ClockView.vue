@@ -9,35 +9,37 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
-export default defineComponent({
-  name: "ClockView",
-  setup() {
-    const curDate = new Date();
-    const hour = ref<number>(curDate.getHours());
-    const minute = ref<number>(curDate.getMinutes());
-    const second = ref<number>(curDate.getSeconds());
-    const greeting = ref<string>("Good Morning");
+<script setup lang="ts">
+import { defineProps } from "vue";
 
-    setInterval(() => {
-      let date = new Date();
-      hour.value = date.getHours();
-      minute.value = date.getMinutes();
-      second.value = date.getSeconds();
-    }, 1000);
-
-    return { hour, minute, second, greeting };
-  },
-});
+const props = defineProps<{
+  hour: number;
+  minute: number;
+  second: number;
+  greeting: string;
+}>();
 </script>
-
 <style>
+.dash-board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.greeting {
+  margin: 0 10px;
+}
 .clock {
   margin: 40px;
   margin-right: -20px;
 }
 .clock .numbers {
   font-size: 60px;
+}
+/* responsive */
+@media (max-width: 500px) {
+  .clock .numbers {
+    font-size: 40px;
+  }
 }
 </style>

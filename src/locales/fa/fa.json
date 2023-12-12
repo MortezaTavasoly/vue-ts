@@ -31,5 +31,12 @@
   "profileNameError": "!!! کادر خالیست",
   "todoListError": "!!! لطفا کار خود را وارد کنید",
   "todoListEmpty": "!!! لیست کارهای شما خالیست",
-  "cityEmptyError": "!!! لطفا شهر خود را وارد کنید"
+  "cityEmptyError": "!!! لطفا شهر خود را وارد کنید",
+  "login": "ورود",
+  "close": "بستن",
+  "loginError": "!!!لطفا نام کاربری و رمز عبور را درست وارد کنید ",
+  "NotLoggedinError": "!!! لطفا ابتدا وارد شوید",
+  "logOut": "خروج",
+  "password": "رمز عبور",
+  "userName": "نام کاربری"
 }

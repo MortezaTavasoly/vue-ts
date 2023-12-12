@@ -1,7 +1,7 @@
 <template>
   <div
     class="sidebar"
-    :class="{ dark: theme === 'dark' }"
+    :class="{ dark: props.theme === 'dark' }"
     :style="{ width: sidebarWidthComputed }"
     data-testid="slidbar"
   >
@@ -40,16 +40,12 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { defineProps } from "vue";
 import { collapsed, toggleSidebar, sidebarWidthComputed } from "./states";
 
-export default defineComponent({
-  name: "Side-bar",
-  props: ["theme"],
-  setup() {
-    return { collapsed, toggleSidebar, sidebarWidthComputed };
-  },
+const props = defineProps({
+  theme: String,
 });
 </script>
 <style scoped>
